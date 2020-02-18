@@ -13,6 +13,8 @@
 
 @interface ViewController ()
 
+@property (nonatomic, retain) NSString *myName;
+
 @end
 
 @implementation ViewController
@@ -33,7 +35,24 @@
     NSMutableString *firstString = [array objectAtIndex:0];
     
     [array release];
+    
+    self.myName = [[[NSMutableString alloc] initWithString:@"Vici Shaweddy"] autorelease];
+    
+    Person *vici = [[Person alloc] init]; // 1
+    Car *honda = [[Car alloc] init]; // 1
+    vici.car = honda; // honda 2
+    [honda release]; // honda 1
+    
+    vici.car = honda; // honda 1
+    [vici release]; // vici 0, honda 0
 }
+
+- (void)dealloc
+{
+    [_myName release];
+}
+
+
 
 
 @end

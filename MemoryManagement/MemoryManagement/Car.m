@@ -8,8 +8,14 @@
 
 #import "Car.h"
 #import "LSILog.h"
+#import "Person.h"
 
 @implementation Car
+
++ (instancetype)carWithMake:(NSString *)aMake
+{
+    return [[self alloc] initWithMake:aMake];
+}
 
 - (instancetype)initWithMake:(NSString *)make {
 	self = [super init];
@@ -20,12 +26,19 @@
 	return self;
 }
 
-// TODO: Implement autoreleased class car method
-
+// Implement autoreleased class car method
 
 - (void)dealloc {
-    NSLog(@"Car.dealloc: %@", self);
-    // TODO: Implement dealloc with MRC
+    NSLog(@"-[Car.dealloc]: %@", self);
+    // Implement dealloc with MRC
+    
+    
+    self.make = nil;
+//    [_make release];
+//    _make = nil;
+    
+    [super dealloc];
+    
 }
 
 - (NSString *)description {
