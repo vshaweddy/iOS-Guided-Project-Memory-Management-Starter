@@ -15,22 +15,33 @@
 - (instancetype)initWithCar:(Car *)car {
 	self = [super init];
 	if (self) {
+        _car = [car retain]; // will establish ownership // +1 retain count of car
+        
 		NSLog(@"Person.init: %@", _car);
-        // TODO: Implement initWithCar with MRC
-        _car = car;
+        // Implement initWithCar with MRC
+
 	}
 	return self;
 }
 
 - (void)dealloc {
-    // TODO: Implement dealloc with MRC (order is important)
-
     NSLog(@"Person.dealloc: %@", _car);
+    
+    // Implement dealloc with MRC (order is important)
+    [_car release];
+    _car = nil;
+
+
+    [super dealloc];
 }
 
-// TODO: Implement setCar with MRC
+// Implement setCar with MRC
 - (void)setCar:(Car *)car {
-    _car = car;
+    
+    if (car != _car) { // we need this if the car is assigned to the same car
+        [_car release];
+        _car = [car retain];
+    }
 }
 
 @end
